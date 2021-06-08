@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PyramidCSVDAO {
     Scanner scFile;
@@ -17,8 +19,9 @@ public class PyramidCSVDAO {
         File myFile = new File(fileName);
         try {
             scFile = new Scanner(myFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        }catch (FileNotFoundException ex) {
+            Logger.getLogger(PyramidCSVDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("File Not Found , kindly check name or path");
         }
     }
 
@@ -39,6 +42,7 @@ public class PyramidCSVDAO {
 
     public Pyramid createPyramid(String inputStr ){
         String[] metaData = inputStr.split(",",-1);
+        if(metaData[7].equals("")) metaData[7] ="0";
         Pyramid pyramid = new Pyramid(metaData[0],metaData[2],metaData[4],Double.parseDouble(metaData[7]) );
         return pyramid;
     }
